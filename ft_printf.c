@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gtome-ve <gtome-ve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gtome-ve <gtome-ve@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 20:31:11 by gtome-ve          #+#    #+#             */
-/*   Updated: 2025/02/14 20:29:21 by gtome-ve         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:34:42 by gtome-ve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,22 @@ int ft_fillformat_pf(va_list lst, char c, int *count)
 int ft_printf(char const *str, ...)
 {
     va_list lst;
-    int count = 0;
-    int i = 0;
+    int     count;
+    int     i;
 
+    count = 0;
+    i = 0;
     if (!str)
         return (-1);
 
     va_start(lst, str);
     while (str[i] && count != -1)
     {
-        if (str[i] != '%') // Caractere normal
+        if (str[i] != '%')
         {
             ft_putchar_pf(str[i], &count);
         }
-        else // Formato especial
+        else
         {
             i++;
             ft_fillformat_pf(lst, str[i], &count);

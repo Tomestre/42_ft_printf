@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_funlibft_pf.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gtome-ve <gtome-ve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gtome-ve <gtome-ve@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 20:29:30 by gtome-ve          #+#    #+#             */
-/*   Updated: 2025/02/14 20:30:13 by gtome-ve         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:31:09 by gtome-ve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// Função principal para calcular o comprimento de uma string
 size_t ft_strlen_pf(char *str)
 {
     int i = -1;
@@ -21,7 +20,6 @@ size_t ft_strlen_pf(char *str)
     return (i);
 }
 
-// Função principal para imprimir um caractere e atualizar o contador
 void ft_putchar_pf(char c, int *count)
 {
     if (!count || *count == -1)
@@ -32,22 +30,21 @@ void ft_putchar_pf(char c, int *count)
         (*count)++;
 }
 
-// Função unificada para imprimir números (com ou sem sinal) e strings
 void ft_putdata_pf(long long nbr, char *base, int *count, int is_signed)
 {
-    size_t base_len = ft_strlen_pf(base);
+    size_t base_len;
 
-    // Trata números com sinal se `is_signed` for verdadeiro
     if (is_signed && nbr < 0)
     {
         ft_putchar_pf('-', count);
         nbr *= -1;
     }
 
-    // Converte recursivamente o número para a base especificada
-    if ((unsigned long long)nbr < base_len) // Cast explícito para unsigned
+    base_len = ft_strlen_pf(base);
+
+    if ((unsigned long long)nbr < base_len)
     {
-        ft_putchar_pf(base[(unsigned long long)nbr], count); // Cast explícito para unsigned
+        ft_putchar_pf(base[(unsigned long long)nbr], count); 
     }
     else
     {
@@ -56,19 +53,17 @@ void ft_putdata_pf(long long nbr, char *base, int *count, int is_signed)
     }
 }
 
-// Função unificada para imprimir strings e ponteiros
+
 void ft_putstr_or_ptr_pf(char *str, int *count, int is_ptr)
 {
     if (!count)
         return;
-
-    // Caso especial para ponteiros nulos ou strings nulas
     if (!str)
     {
         if (is_ptr)
-            str = "(nil)"; // Para %p, imprime (nil)
+            str = "(nil)";
         else
-            str = "(null)"; // Para %s, imprime (null)
+            str = "(null)";
     }
     else if (is_ptr) // Para ponteiros, adiciona o prefixo "0x"
     {
